@@ -1,0 +1,62 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: platform-apps
+  namespace: argocd
+spec:
+  generators:
+    - matrix:
+        generators:
+          # 1. Platform components list
+          - list:
+              elements:
+                - name: monitoring
+                  namespace: monitoring
+                  repoURL: https://prometheus-community.github.io/helm-charts
+                  chart: kube-prometheus-stack
+                  version: 85.3.3
+          # 2. Environments
+          - list:
+              elements:
+                - env: dev
+                  cluster: https://kubernetes.default.svc
+  template:
+    metadata:
+      name: '{{name}}-{{env}}'
+      annotations:
+        argocd.argoproj.io/sync-wave: "0"
+    spec:
+      project: default
+      source:
+        repoURL: '{{repoURL}}'
+        chart: '{{chart}}'
+        targetRevision: '{{version}}'
+        helm:
+          releaseName: '{{name}}'
+          valueFiles:
+            - '$values/platform/{{name}}/values-{{env}}.yaml'
+      # Multi-source (Helm chart + your values repo)
+      sources:
+        # Git repo for values
+        - repoURL: https://github.com/mrcpngn/k8s-gitops.git
+          targetRevision: HEAD
+          ref: values
+        # Upstream chart
+        - repoURL: '{{repoURL}}'
+          chart: '{{chart}}'
+          targetRevision: '{{version}}'
+          helm:
+            releaseName: '{{name}}'
+            valueFiles:
+              - '$values/platform/{{name}}/values-{{env}}.yaml'
+      destination:
+        server: '{{cluster}}'
+        namespace: '{{namespace}}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+          - ServerSideApply=true
+      revisionHistoryLimit: 3
