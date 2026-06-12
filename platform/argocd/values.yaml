@@ -19,7 +19,7 @@ configs:
 
   cm:
     # URL used by users to access the UI locally
-    url: "http://argocd.localhost"
+    url: "http://localhost:8080"
     
     # Enable native OIDC
     oidc.config: |
