@@ -16,3 +16,31 @@ global:
 configs:
   params:
     server.insecure: true
+
+  cm:
+    # URL used by users to access the UI locally
+    url: "http://argocd.localhost"
+    
+    # Enable native OIDC
+    oidc.config: |
+      name: Keycloak
+      issuer: http://cluster.local
+      clientID: argocd
+      clientSecret: $oidc.keycloak.clientSecret
+      requestedScopes:
+        - openid
+        - profile
+        - email
+        - groups
+
+  # Map Keycloak groups to Admin permissions within ArgoCD
+  rbac:
+    policy.csv: |
+      g, ArgoCDAdmins, role:admin
+
+  # Safely inject the confidential client secret without plain-text exposure
+  secret:
+    extra:
+      # Tell the Helm chart to merge your manual secret into ArgoCD
+      secretName: "argocd-secret-extra"
+

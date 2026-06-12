@@ -8,15 +8,15 @@ metadata:
 spec:
   project: default
   sources:
+    - repoURL: {{ .Values.spec.source.repoURL }}
+      targetRevision: {{ .Values.spec.source.targetRevision }}
+      ref: values
     - repoURL: https://argoproj.github.io/argo-helm # Upstream Chart
       chart: argo-cd
       targetRevision: 9.5.21
       helm:
         valueFiles:
           - $values/platform/argocd/values.yaml # Local configurations
-    - repoURL: {{ .Values.spec.source.repoURL }}
-      targetRevision: {{ .Values.spec.source.targetRevision }}
-      ref: values
   destination:
     server: {{ .Values.spec.destination.server }}
     namespace: argocd
