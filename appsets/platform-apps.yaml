@@ -39,7 +39,7 @@ spec:
       sources:
         # Git repo for values
         - repoURL: https://github.com/mrcpngn/k8s-gitops.git
-          targetRevision: feature/monitoring
+          targetRevision: HEAD
           ref: values
         # Upstream chart
         - repoURL: '{{repoURL}}'
