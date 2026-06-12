@@ -15,6 +15,12 @@ spec:
                   repoURL: https://prometheus-community.github.io/helm-charts
                   chart: kube-prometheus-stack
                   version: 85.3.3
+
+                - name: keycloak
+                  namespace: keycloak
+                  repoURL: registry-1.docker.io/cloudpirates
+                  chart: keycloak
+                  version: 0.21.9
           # 2. Environments
           - list:
               elements:
