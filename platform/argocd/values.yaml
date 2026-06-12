@@ -24,14 +24,12 @@ configs:
     # Enable native OIDC
     oidc.config: |
       name: Keycloak
-      issuer: http://cluster.local
-      clientID: argocd
-      clientSecret: $oidc.keycloak.clientSecret
-      requestedScopes:
-        - openid
-        - profile
-        - email
-        - groups
+      # Use the internal cluster DNS name and internal port (8080)
+      issuer: "http://cluster.local"
+      clientID: "argocd"
+      clientSecret: "$argocd-secret:oidc.keycloak.clientSecret"
+      requestedScopes: ["openid", "profile", "email", "groups"]
+      InsecureSkipVerify: true
 
   # Map Keycloak groups to Admin permissions within ArgoCD
   rbac:
