@@ -10,7 +10,7 @@ spec:
   sources:
     - repoURL: https://argoproj.github.io/argo-helm # Upstream Chart
       chart: argo-cd
-      targetRevision: 7.3.0 # Match your target version
+      targetRevision: 9.5.21
       helm:
         valueFiles:
           - $values/platform/argocd/values.yaml # Local configurations
