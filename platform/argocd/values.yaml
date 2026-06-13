@@ -30,13 +30,13 @@ configs:
 
   cm:
     # URL used by users to access the UI locally
-    url: "http://localhost:8080"
+    url: "http://argocd.k3d.localhost:8081"
     
     # Enable native OIDC
     oidc.config: |
       name: Keycloak
       # Use the internal cluster DNS name and internal port (8080)
-      issuer: "http://cluster.local"
+      issuer: "http://keycloak.k3d.localhost:8081/realms/master"
       clientID: "argocd"
       clientSecret: "$argocd-secret:oidc.keycloak.clientSecret"
       requestedScopes: ["openid", "profile", "email", "groups"]
@@ -45,7 +45,7 @@ configs:
   # Map Keycloak groups to Admin permissions within ArgoCD
   rbac:
     policy.csv: |
-      g, ArgoCDAdmins, role:admin
+      g, argocd-admins, role:admin
 
   # Safely inject the confidential client secret without plain-text exposure
   secret:
