@@ -1,3 +1,15 @@
+ingress:
+  enabled: true
+  hosts:
+    - host: keycloak.k3d.localhost
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: keycloak
+              port:
+                number: 80
 affinity: 
   nodeAffinity:
     requiredDuringSchedulingIgnoredDuringExecution:
