@@ -36,9 +36,10 @@ configs:
     oidc.config: |
       name: Keycloak
       # Use the internal cluster DNS name and internal port (8080)
-      issuer: http://k3d.localhost
+      issuer: http://cluster.local
+      externalIssuer: true
       clientID: argocd
-      clientSecret: "$argocd-secret:oidc.keycloak.clientSecret"
+      clientSecret: "$argoc d-secret:oidc.keycloak.clientSecret"
       requestedScopes: ["openid", "profile", "email", "groups"]
       InsecureSkipVerify: true
 
