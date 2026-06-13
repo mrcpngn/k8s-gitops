@@ -1,17 +1,28 @@
 global:
- affinity:
-    # -- Default pod anti-affinity rules. Either: `none`, `soft` or `hard`
-    podAntiAffinity: soft
-    # Node affinity rules
-    nodeAffinity:
-      # -- Default node affinity rules. Either: `none`, `soft` or `hard`
-      type: hard
-      # -- Default match expressions for node affinity
-      matchExpressions:
-        - key: node-role.kubernetes.io/control-plane
-          operator: In
-          values:
-           - "true"
+  # -- Default domain used by all components
+  ## Used for ingresses, certificates, SSO, notifications, etc.
+  domain: argocd.k3d.localhost
+
+  affinity:
+      # -- Default pod anti-affinity rules. Either: `none`, `soft` or `hard`
+      podAntiAffinity: soft
+      # Node affinity rules
+      nodeAffinity:
+        # -- Default node affinity rules. Either: `none`, `soft` or `hard`
+        type: hard
+        # -- Default match expressions for node affinity
+        matchExpressions:
+          - key: node-role.kubernetes.io/control-plane
+            operator: In
+            values:
+            - "true"
+
+
+server:
+  ingress:
+    # -- Enable an ingress resource for the Argo CD server
+    enabled: true
+    pathType: Prefix
 
 configs:
   params:
