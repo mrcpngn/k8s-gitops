@@ -37,7 +37,7 @@ configs:
       name: Keycloak
       issuer: http://keycloak.k3d.localhost:8081/realms/master
       clientID: argocd
-      clientSecret: $argocd-secret:oidc.keycloak.clientSecret
+      clientSecret: $argocd-secret-extra:oidc.keycloak.clientSecret
       requestedScopes: ["openid", "profile", "email", "groups"]
 
   # Map Keycloak groups to Admin permissions within ArgoCD
