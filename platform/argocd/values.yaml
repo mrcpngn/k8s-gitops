@@ -30,7 +30,7 @@ configs:
 
   cm:
     # URL used by users to access the UI locally
-    url: "http://argocd.k3d.localhost:8081"
+    url: "http://k3d.localhost"
     
     # Enable native OIDC
     oidc.config: |
