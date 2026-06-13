@@ -1,6 +1,6 @@
 keycloak:
-  hostname: keycloak.k3d.localhost:8081
-  
+  hostname: keycloak.k3d.localhost
+
 
 ingress:
   enabled: true
