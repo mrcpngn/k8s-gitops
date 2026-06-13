@@ -35,7 +35,7 @@ configs:
     # Enable native OIDC
     oidc.config: |
       name: Keycloak
-      issuer: http://keycloak.keycloak.svc.cluster.local:8080/realms/master
+      issuer: http://keycloak.k3d.localhost:8081/realms/master
       clientID: argocd
       clientSecret: $argocd-secret:oidc.keycloak.clientSecret
       requestedScopes: ["openid", "profile", "email", "groups"]
